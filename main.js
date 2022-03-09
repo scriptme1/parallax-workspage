@@ -1,14 +1,18 @@
-const searchBox = document.querySelector(".search-box");
-const navBtnContainer = document.querySelector(".nav-btn-container");
-const searchBtn = document.querySelector(".search-btn");
-const closeBtn = document.querySelector(".close-btn");
+$(function () {
+  var lastScrollTop = 0,
+    delta = 15;
+  $(window).scroll(function (event) {
+    var st = $(this).scrollTop();
 
-searchBtn.addEventListener("click", () => {
-  searchBox.classList.add("active");
-  navBtnContainer.classList.add("active");
-});
-
-closeBtn.addEventListener("click", () => {
-  searchBox.classList.remove("active");
-  navBtnContainer.classList.remove("active");
+    if (Math.abs(lastScrollTop - st) <= delta) return;
+    if (st > lastScrollTop && lastScrollTop > 0) {
+      // downscroll code
+      $('header').css('top', '-100px');
+    } else if (lastScrollTop < 70) {
+      // upscroll code
+      $('header').css('top', '0px');
+    }
+    // console.log(lastScrollTop);
+    lastScrollTop = st;
+  });
 });
